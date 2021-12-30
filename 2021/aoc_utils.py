@@ -9,3 +9,7 @@ def str_to_2d_array(grid_str):
         out.append([int(v) if v.isdigit() else v for v in line])
     
     return out
+
+def print_grid(grid_list, space_str=" "):
+    for row in grid_list:
+        print(space_str.join(row))
