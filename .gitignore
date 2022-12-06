@@ -1,3 +1,4 @@
 *checkpoint.ipynb
 input*.txt
 __pycache__*
+.vscode/
