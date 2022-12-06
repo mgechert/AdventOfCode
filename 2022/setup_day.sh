@@ -16,8 +16,7 @@ echo "# Advent of Code Day $1 solution code" >> $solution_file
 
 
 echo "Creating tests file $tests_file"
-test_header="import pytest
-from $filename_base import *"
+test_header="import pytest"
 
 echo $test_header >> $tests_file
 
