@@ -82,4 +82,5 @@ def test_part_2_solution(puzzle_input):
 
     print(f"Part 2 solution: {part2_solution}")
 
-    assert part2_solution is None
+    # Accepted part 2 solution
+    assert part2_solution == 13433
