@@ -1,13 +1,19 @@
 import os
-from typing import List
+from typing import Callable
 
 INPUTS_PATH = os.path.join(os.path.dirname(__file__), "tests/inputs")
 
 
-def input_file_to_str_list(filename: str) -> List[str]:
+def parse_input_file(filename: str,
+                     parse_line: Callable = lambda line: line.strip()) -> list:
+    """
+    Read the given input file into a list, applying the optional
+    parse_fn
+    """
     output = []
+
     with open(f"{INPUTS_PATH}/{filename}") as f:
         for line in f.readlines():
-            output.append(line.strip())
+            output.append(parse_line(line))
 
     return output

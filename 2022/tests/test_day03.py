@@ -1,17 +1,17 @@
 import pytest
 
-from aoc_utils import input_file_to_str_list
+from aoc_utils import parse_input_file
 from day03 import calculate_rucksack_priority, calculate_group_priority
 
 
 @pytest.fixture
 def example_input():
-    return input_file_to_str_list("day03ex.txt")
+    return parse_input_file("day03ex.txt")
 
 
 @pytest.fixture
 def puzzle_input():
-    return input_file_to_str_list("day03.txt")
+    return parse_input_file("day03.txt")
 
 
 def test_example_input_reads_six_lines(example_input):
