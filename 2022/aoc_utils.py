@@ -9,5 +9,5 @@ def input_file_to_str_list(filename: str) -> List[str]:
     with open(f"{INPUTS_PATH}/{filename}") as f:
         for line in f.readlines():
             output.append(line.strip())
-    
+
     return output

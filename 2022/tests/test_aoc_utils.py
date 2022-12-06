@@ -1,5 +1,3 @@
-import pytest
-
 from aoc_utils import input_file_to_str_list
 
 
