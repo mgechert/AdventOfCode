@@ -1,7 +1,9 @@
 import pytest
 
 from aoc_utils import parse_input_file
-from day08 import get_visible_matrix, count_visible
+from day08 import (
+    get_visible_matrix, count_visible, get_scenic_matrix, matrix_max
+)
 
 
 def parse_line(line):
@@ -45,3 +47,34 @@ def test_part1_solution(puzzle_input):
 
     # Accepted part 1 solution
     assert visible_count == 1812
+
+
+# Part 2
+
+
+def test_example_scenic_matrix_calculates_expected(example_input):
+    scenic_matrix = get_scenic_matrix(example_input)
+
+    # Per example, tree of h=5 in coordinates 1, 2 has scenic score 4
+    actual_score = scenic_matrix[1][2]
+
+    print(scenic_matrix)
+
+    assert actual_score == 4
+
+
+def test_example_scenic_matrix_max(example_input):
+    scenic_matrix = get_scenic_matrix(example_input)
+    max_score = matrix_max(scenic_matrix)
+
+    assert max_score == 8
+
+
+def test_part2_solution(puzzle_input):
+    scenic_matrix = get_scenic_matrix(puzzle_input)
+    max_score = matrix_max(scenic_matrix)
+
+    print(f"Part 2 solution is {max_score}")
+
+    # Accepted part 2 solution
+    assert max_score == 315495

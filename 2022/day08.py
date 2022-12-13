@@ -1,19 +1,15 @@
 from itertools import product
-from typing import List
+from typing import Iterable, List
 
 # Advent of Code Day 8 solution code
 
 
-def get_visible_matrix(tree_matrix: List[List[int]]) -> List[List[bool]]:
+def get_row_iterators(height: int, width: int) -> List[Iterable]:
     """
-    Given a matrix of tree heights of HxW, determine which trees are visible
-    Returns a HxW matrix of bools corresponding to the trees at the same
-    coordinates
+    Returns a list of iterators containing (r, c) coordinates over each row
+    in a matrix of size height x width going left to right and right
+    to left, as well as each column going top to bottom and bottom to top.
     """
-    height = len(tree_matrix)
-    width = len(tree_matrix[0])
-    visible_matrix = [[False for _ in range(width)] for _ in range(height)]
-
     row_iterators = []
 
     # Scan right and left
@@ -25,6 +21,20 @@ def get_visible_matrix(tree_matrix: List[List[int]]) -> List[List[bool]]:
     for col in range(width):
         row_iterators.append(product(range(height), [col]))
         row_iterators.append(product(range(height-1, -1, -1), [col]))
+
+    return row_iterators
+
+
+def get_visible_matrix(tree_matrix: List[List[int]]) -> List[List[bool]]:
+    """
+    Given a matrix of tree heights of HxW, determine which trees are visible
+    Returns a HxW matrix of bools corresponding to the trees at the same
+    coordinates
+    """
+    height = len(tree_matrix)
+    width = len(tree_matrix[0])
+    row_iterators = get_row_iterators(height, width)
+    visible_matrix = [[False for _ in range(width)] for _ in range(height)]
 
     # Iterate each row (up/down/right/left)
     for row in row_iterators:
@@ -49,3 +59,45 @@ def count_visible(visible_matrix: List[List[bool]]) -> int:
             visible_count += 1
 
     return visible_count
+
+
+def get_scenic_matrix(tree_matrix: List[List[int]]) -> List[List[int]]:
+    """
+    Given a matrix of tree heights of HxW, determine the "scenic score" for
+    the tree at each location in the matrix.
+    Returns a HxW matrix of ints corresponding to the trees at the same
+    coordinates
+    """
+    height = len(tree_matrix)
+    width = len(tree_matrix[0])
+    max_height = 10  # Technically it's 9, but zero-indexed
+    row_iterators = get_row_iterators(height, width)
+    scenic_matrix = [[1 for _ in range(width)] for _ in range(height)]
+
+    # Iterate each row (up/down/right/left)
+    for row in row_iterators:
+        next_score_for_height = [0 for _ in range(max_height)]
+
+        for r, c in row:
+            this_height = tree_matrix[r][c]
+            scenic_matrix[r][c] *= next_score_for_height[this_height]
+
+            for height in range(max_height):
+                if height > this_height:
+                    next_score_for_height[height] += 1
+                else:
+                    next_score_for_height[height] = 1
+
+    return scenic_matrix
+
+
+def matrix_max(scenic_matrix: List[List[int]]) -> int:
+    """Finds max value in a 2D matrix"""
+    height = len(scenic_matrix)
+    width = len(scenic_matrix[0])
+    max_score = 0
+
+    for r, c in product(range(height), range(width)):
+        max_score = max(scenic_matrix[r][c], max_score)
+
+    return max_score
