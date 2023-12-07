@@ -1,10 +1,10 @@
 import os
-from typing import Callable
+from typing import Callable, List, Any
 
 
 def parse_input_file(filename: str,
                      parse_line: Callable = lambda line: line.strip(),
-                     inputs_path: str = None) -> list:
+                     inputs_path: str = None) -> List[Any]:
     """
     Read the given input file into a list, applying the optional
     parse_fn
