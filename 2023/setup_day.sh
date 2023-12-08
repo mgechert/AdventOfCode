@@ -16,9 +16,32 @@ echo "# Advent of Code Day $1 solution code" >> $solution_file
 
 
 echo "Creating tests file $tests_file"
-test_header="import pytest"
+cat <<EOF >> $tests_file
+import pytest
 
-echo $test_header >> $tests_file
+from aoc_utils import parse_input_file
+
+@pytest.fixture
+def ex1_input():
+    return parse_input_file("$input_ex_file")
+
+
+@pytest.fixture
+def problem_input():
+    return parse_input_file("$input_file")
+
+def test_read_inputs(ex1_input, problem_input):
+    # Sanity check - did the inputs get completely read?
+    ex_len = len(ex1_input)
+    in_len = len(problem_input)
+
+    expected_ex_len = 0
+    expected_in_len = 0
+
+    assert ex_len == expected_ex_len
+    assert in_len == expected_in_len
+
+EOF
 
 
 echo "Creating empty inputs files $input_ex_file, $input_file"

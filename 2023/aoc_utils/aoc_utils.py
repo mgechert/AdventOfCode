@@ -1,5 +1,5 @@
 import os
-from typing import Callable, List, Any
+from typing import Any, Callable, List, Tuple
 
 
 def parse_input_file(filename: str,
@@ -20,3 +20,22 @@ def parse_input_file(filename: str,
             output.append(parse_line(line))
 
     return output
+
+
+def get_adjacent_points(row: int, col: int, num_rows: int, num_cols: int) -> List[Tuple[int, int]]:
+    """Given a point (r, c), return a list of up to 8 adjacent points based on a
+        2D array of size num_rows x num_cols, filtering out indices that would be
+        out-of-bounds. (Recall that my_list[-1] is a *valid* index in Python)
+    """
+    possible_points = [ (row-1, col-1), (row-1, col), (row-1, col+1),
+                        (row, col-1), (row, col+1),
+                        (row+1, col-1), (row+1, col), (row+1, col+1)
+                        ]
+    
+    adjacent_points = []
+
+    for point in possible_points:
+        if min(point) >= 0 and point[0] < num_rows and point[1] < num_cols:
+            adjacent_points.append(point)
+    
+    return adjacent_points
