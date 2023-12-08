@@ -23,12 +23,12 @@ from aoc_utils import parse_input_file
 
 @pytest.fixture
 def ex1_input():
-    return parse_input_file("$input_ex_file")
+    return parse_input_file("${filename_base}ex.txt")
 
 
 @pytest.fixture
 def problem_input():
-    return parse_input_file("$input_file")
+    return parse_input_file("${filename_base}.txt")
 
 def test_read_inputs(ex1_input, problem_input):
     # Sanity check - did the inputs get completely read?
