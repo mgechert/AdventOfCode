@@ -12,8 +12,16 @@ if test -e "$solution_file"; then
 fi
 
 echo "Creating $solution_file"
-echo "# Advent of Code Day $1 solution code" >> $solution_file
+cat <<EOF >> $solution_file
+import logging
 
+logger = logging.getLogger()
+
+
+# Advent of Code Day $1 solution code
+
+
+EOF
 
 echo "Creating tests file $tests_file"
 cat <<EOF >> $tests_file
